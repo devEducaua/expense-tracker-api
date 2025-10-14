@@ -1,0 +1,16 @@
+{
+  "name": "expense-tracker-api",
+  "scripts": {
+    "dev": "bun run --hot src/server.ts",
+    "start": "bun run --hot dist/server.js"
+  },
+  "dependencies": {
+    "@types/pg": "^8.15.5",
+    "hono": "^4.9.12",
+    "jose": "^6.1.0",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
