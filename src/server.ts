@@ -1,5 +1,7 @@
-import { Hono } from 'hono'
+import { Hono } from "hono";
 import { jwt } from "hono/jwt";
+import expenses from "./controllers/expenseController";
+import users from "./controllers/userController";
 
 const app = new Hono().basePath("/api");
 
@@ -9,4 +11,10 @@ app.use("/expenses*", jwt({
     secret: envkey
 }))
 
-export default app;
+app.route("/", users);
+app.route("/", expenses);
+
+export default {
+    fetch: app.fetch,
+    port: 8080
+}

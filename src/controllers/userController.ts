@@ -1,6 +1,7 @@
 import { Hono, Context } from "hono";
 import UserService from "../services/userService";
 import User from "../domain/user";
+import expenses from "./expenseController";
 
 const service = new UserService();
 
@@ -49,3 +50,5 @@ users.delete("/:id", async (c: Context) => {
 
     return c.json({ user: `${id} deleted` })
 })
+
+export default users;
