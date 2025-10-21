@@ -1,9 +1,8 @@
 import { Hono, Context } from "hono";
-import UserService from "../services/userService";
 import User from "../domain/user";
-import expenses from "./expenseController";
+import UserRepository from "../repositories/userRepository";
 
-const service = new UserService();
+const repo = new UserRepository();
 
 const users = new Hono().basePath("/users");
 
@@ -12,13 +11,13 @@ users.post("/login", async (c: Context) => {
 
     const userObj = new User(name, email, password);
 
-    const jwt = await service.login(userObj);
+    const jwt = await repo.login(userObj);
 
     c.json({ jwt: jwt });
 })
 
 users.get("/", async (c: Context) => {
-    const result = await service.getAll();
+    const result = await repo.getAll();
 
     return c.json({ data: result })
 })
@@ -28,7 +27,7 @@ users.post("/", async (c: Context) => {
 
     const userObj = new User(name, email, password);
 
-    await service.create(userObj);
+    await repo.create(userObj);
 
     c.json({ user: "created" });
 })
@@ -39,14 +38,14 @@ users.post("/:id", async (c: Context) => {
 
     const userObj = new User(name, email, password);
 
-    await service.update(userObj, id);
+    await repo.update(userObj, id);
 
     c.json({ user: "updated" });
 })
 
 users.delete("/:id", async (c: Context) => {
     const id = c.req.param("id");
-    await service.delete(id);
+    await repo.delete(id);
 
     return c.json({ user: `${id} deleted` })
 })

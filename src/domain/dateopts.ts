@@ -1,6 +1,6 @@
 export enum dateOpts {
-    pastweek,
-    pastmonth,
-    last3months,
-    custom
+    pastweek = "pastweek",
+    pastmonth = "pastmonth",
+    last3months = "last3months",
+    custom = "custom"
 }
